@@ -22,7 +22,7 @@ type ExitCode =
     | CommandLineNotParsed = 2
 
 let buildCommandLogByAuthor (options: Options) : string = 
-    sprintf "cd %s && git --no-pager log --author='%s' --date=iso" 
+    sprintf "cd '%s' && git --no-pager log --author='%s' --date=iso" 
         options.Repository 
         options.Author
 
