@@ -12,6 +12,11 @@ type Options = {
     Repository: string
 }
 
+type ExitCode = 
+    | Success = 0
+    | CommandLineParseError = 1
+    | CommandLineNotParsed = 2
+
 [<EntryPoint>]
 let main argv =
     printfn "Hello World from F#!"
