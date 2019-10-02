@@ -71,6 +71,9 @@ let merge (m1: Map<'a, 'b>) (m2: Map<'a, 'b>) : Map<'a, 'b> =
 let maxHourCommits (hours: Map<_, int>) : int =
     hours |> Map.toArray |> Array.maxBy snd |> snd
 
+let repeat (count: int) (str: string) : string =
+    String.init count (fun _ -> str)
+
 [<EntryPoint>]
 let main argv =
     let commandLineR = CommandLine.Parser.Default.ParseArguments<Options>(argv)
