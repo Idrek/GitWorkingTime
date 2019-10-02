@@ -74,6 +74,13 @@ let maxHourCommits (hours: Map<_, int>) : int =
 let repeat (count: int) (str: string) : string =
     String.init count (fun _ -> str)
 
+let printHourChart (maxCommits: int) (hours: Map<int, int>) : unit =
+    let fMaxCommits = float maxCommits
+    hours
+    |> Map.toArray
+    |> Array.iter (fun (hour, commits) -> 
+        printfn "%02d | %4d %s" hour commits (repeat (int (float commits / fMaxCommits * 50.0)) "*"))
+
 [<EntryPoint>]
 let main argv =
     let commandLineR = CommandLine.Parser.Default.ParseArguments<Options>(argv)
