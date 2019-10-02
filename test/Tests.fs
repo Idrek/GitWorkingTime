@@ -133,4 +133,13 @@ let ``Test merge function`` () =
 let ``Test maxHourCommits function`` () =
     Assert.Equal(0, Map.empty |> maxHourCommits)
     Assert.Equal(9, Map [(4, 1); (14, 6); (2, 9); (3, 7)] |> maxHourCommits)
+
+// ---------------------------------
+// repeat
+// ---------------------------------        
+
+[<Fact>]
+let ``Test repeat function`` () =
+    Assert.Equal("aaaa", repeat 4 "a")
+    Assert.Equal("abcabcabc", repeat 3 "abc")
     
