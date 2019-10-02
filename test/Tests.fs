@@ -124,4 +124,13 @@ let ``Test merge function`` () =
     Assert.Equal<Map<int, string>>(
         Map.ofArray [|(1, "one"); (2, "TWO"); (3, "three")|], 
         merge (Map.ofArray [|(1, "one"); (2, "two")|]) (Map.ofArray [|(3, "three"); (2, "TWO")|]))        
-        
+
+// ---------------------------------
+// maxHourCommits
+// ---------------------------------        
+
+[<Fact>]
+let ``Test maxHourCommits function`` () =
+    Assert.Equal(0, Map.empty |> maxHourCommits)
+    Assert.Equal(9, Map [(4, 1); (14, 6); (2, 9); (3, 7)] |> maxHourCommits)
+    
