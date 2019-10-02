@@ -82,8 +82,8 @@ let printHourChart (maxCommits: int) (hours: Map<int, int>) : unit =
 
 [<EntryPoint>]
 let main argv =
-    let commandLineR = CommandLine.Parser.Default.ParseArguments<Options>(argv)
-    match commandLineR with
+    let commandLine = CommandLine.Parser.Default.ParseArguments<Options>(argv)
+    match commandLine with
     | :? CommandLine.NotParsed<Options> -> int ExitCode.CommandLineNotParsed
     | :? CommandLine.Parsed<Options> as parsed -> 
         let bash : Bash = new Bash()
