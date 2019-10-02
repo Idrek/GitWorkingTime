@@ -1,7 +1,6 @@
 ﻿// Learn more about F# at http://fsharp.org
 
 open CommandLine
-open System
 
 type Bash = Shell.NET.Bash
 type Match = System.Text.RegularExpressions.Match
