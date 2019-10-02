@@ -35,6 +35,11 @@ let authorHours (authorLog: array<string>) : array<int> =
         let m : Match = Regex.Match(line, @"^Date:\s+[\d-]{10}\s+(\d{2})")
         if m.Success = false then None else m.Groups.[1].Value |> int |> Some)
 
+let initHours () : Map<int, int> =
+    let dayHours = 24
+    let commits = 0
+    Seq.init dayHours (fun h -> (h, commits)) |> Map.ofSeq
+
 [<EntryPoint>]
 let main argv =
     let commandLineR = CommandLine.Parser.Default.ParseArguments<Options>(argv)
