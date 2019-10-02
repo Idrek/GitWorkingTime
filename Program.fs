@@ -65,6 +65,9 @@ let groupBy (f: 'a -> 'b) (arr: array<'a>) : Map<'b, int> =
 let groupCommitsByHour (hours: array<int>) : Map<int, int> =
     groupBy id hours
 
+let merge (m1: Map<'a, 'b>) (m2: Map<'a, 'b>) : Map<'a, 'b> =
+    Map.fold (fun acc k v -> Map.add k v acc) m1 m2
+
 [<EntryPoint>]
 let main argv =
     let commandLineR = CommandLine.Parser.Default.ParseArguments<Options>(argv)
