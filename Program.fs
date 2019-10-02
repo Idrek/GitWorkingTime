@@ -50,6 +50,18 @@ let updateWithDefault
     | None -> Map.add key defaultValue m
     | Some value -> Map.add key (f value) m
 
+let groupBy (f: 'a -> 'b) (arr: array<'a>) : Map<'b, int> =
+    let lastArrPosition = Array.length arr - 1
+    Array.foldBack
+        (fun x (index, map) ->
+            let r = f x
+            let defaultValue = 1
+            let updatedMap = updateWithDefault (fun (v: int) -> v + 1) r defaultValue map
+            (index - 1, updatedMap))
+        arr
+        (lastArrPosition, (Map.empty<'b, int>))
+    |> snd
+
 [<EntryPoint>]
 let main argv =
     let commandLineR = CommandLine.Parser.Default.ParseArguments<Options>(argv)
