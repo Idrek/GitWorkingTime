@@ -69,7 +69,9 @@ let merge (m1: Map<'a, 'b>) (m2: Map<'a, 'b>) : Map<'a, 'b> =
     Map.fold (fun acc k v -> Map.add k v acc) m1 m2
 
 let maxHourCommits (hours: Map<_, int>) : int =
-    hours |> Map.toArray |> Array.maxBy snd |> snd
+    if Map.isEmpty hours
+    then 0
+    else hours |> Map.toArray |> Array.maxBy snd |> snd
 
 let repeat (count: int) (str: string) : string =
     String.init count (fun _ -> str)
