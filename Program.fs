@@ -86,7 +86,17 @@ let main argv =
     match commandLineR with
     | :? CommandLine.NotParsed<Options> -> int ExitCode.CommandLineNotParsed
     | :? CommandLine.Parsed<Options> as parsed -> 
-        printfn "Options: %A" <| parsed.Value
+        let bash : Bash = new Bash()
+        let options : Options = parsed.Value
+        let authorLog : array<string> = options |> buildCommandLogByAuthor |> runCommand bash
+        match authorLog with
+        | [||] | [|""|] -> ()
+        | authorLog' -> 
+            let emptyHours : Map<int, int> = initHours ()
+            let workHours : array<int> = authorHours authorLog'
+            let allHours : Map<int, int> = workHours |> groupCommitsByHour |> merge emptyHours
+            let maxCommits : int = maxHourCommits allHours
+            printHourChart maxCommits allHours           
         int ExitCode.Success
     | _ -> 
         failwith "Error: CommandLine.Parser.Default.ParseArguments<options>(...)"
