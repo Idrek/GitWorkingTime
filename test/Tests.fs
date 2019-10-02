@@ -98,4 +98,30 @@ let ``Test groupCommitsByHour function`` () =
     Assert.Equal<Map<int, int>>(
         Map.ofArray [|(2, 2); (4, 1); (6, 3)|], 
         groupCommitsByHour [|2;4;6;6;2;6|])
+
+// ---------------------------------
+// merge
+// ---------------------------------        
+
+[<Fact>]
+let ``Test merge function`` () =
+    Assert.Equal<Map<int, string>>(Map.empty, merge Map.empty Map.empty)
+    Assert.Equal<Map<int, string>>(
+        Map.ofArray [|(1, "one"); (2, "two")|], 
+        merge Map.empty <| Map.ofArray [|(1, "one"); (2, "two")|])
+    Assert.Equal<Map<int, string>>(
+        Map.ofArray [|(1, "one"); (2, "two")|], 
+        merge (Map.ofArray [|(1, "one"); (2, "two")|]) Map.empty)
+    Assert.Equal<Map<int, string>>(
+        Map.ofArray [|(1, "one"); (2, "two")|], 
+        merge (Map.ofArray [|(1, "one")|]) (Map.ofArray [|(2, "two")|]))
+    Assert.Equal<Map<int, string>>(
+        Map.ofArray [|(1, "one"); (2, "TWO")|], 
+        merge (Map.ofArray [|(1, "one"); (2, "two")|]) (Map.ofArray [|(2, "TWO")|]))                          
+    Assert.Equal<Map<int, string>>(
+        Map.ofArray [|(1, "ONE"); (2, "TWO")|], 
+        merge (Map.ofArray [|(1, "one"); (2, "two")|]) (Map.ofArray [|(1, "ONE"); (2, "TWO")|]))    
+    Assert.Equal<Map<int, string>>(
+        Map.ofArray [|(1, "one"); (2, "TWO"); (3, "three")|], 
+        merge (Map.ofArray [|(1, "one"); (2, "two")|]) (Map.ofArray [|(3, "three"); (2, "TWO")|]))        
         
