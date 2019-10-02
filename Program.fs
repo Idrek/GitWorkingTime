@@ -2,6 +2,13 @@
 
 open System
 
+type OptionAttribute = CommandLine.OptionAttribute
+
+type Options = {
+    [<Option("author", Required = true, HelpText = "Get its work time")>]
+    Author: string
+}
+
 [<EntryPoint>]
 let main argv =
     printfn "Hello World from F#!"
