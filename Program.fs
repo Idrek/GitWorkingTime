@@ -40,6 +40,16 @@ let initHours () : Map<int, int> =
     let commits = 0
     Seq.init dayHours (fun h -> (h, commits)) |> Map.ofSeq
 
+let updateWithDefault 
+        (f: 'b -> 'b) 
+        (key: 'a) 
+        (defaultValue: 'b) 
+        (m: Map<'a, 'b>) 
+        : Map<'a, 'b> =
+    match Map.tryFind key m with
+    | None -> Map.add key defaultValue m
+    | Some value -> Map.add key (f value) m
+
 [<EntryPoint>]
 let main argv =
     let commandLineR = CommandLine.Parser.Default.ParseArguments<Options>(argv)
