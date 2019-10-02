@@ -1,5 +1,6 @@
 ﻿// Learn more about F# at http://fsharp.org
 
+open CommandLine
 open System
 
 type OptionAttribute = CommandLine.OptionAttribute
@@ -19,5 +20,13 @@ type ExitCode =
 
 [<EntryPoint>]
 let main argv =
-    printfn "Hello World from F#!"
-    0 // return an integer exit code
+    let commandLineR = CommandLine.Parser.Default.ParseArguments<Options>(argv)
+    match commandLineR with
+    | :? CommandLine.NotParsed<Options> -> int ExitCode.CommandLineNotParsed
+    | :? CommandLine.Parsed<Options> as parsed -> 
+        printfn "Options: %A" <| parsed.Value
+        int ExitCode.Success
+    | _ -> 
+        failwith "Error: CommandLine.Parser.Default.ParseArguments<options>(...)"
+        int ExitCode.CommandLineParseError
+        
