@@ -4,7 +4,9 @@ open CommandLine
 open System
 
 type Bash = Shell.NET.Bash
+type Match = System.Text.RegularExpressions.Match
 type OptionAttribute = CommandLine.OptionAttribute
+type Regex = System.Text.RegularExpressions.Regex
 
 type Options = {
     [<Option("author", Required = true, HelpText = "Get its work time")>]
@@ -26,6 +28,12 @@ let buildCommandLogByAuthor (options: Options) : string =
 
 let runCommand (bash: Bash) (command: string) : array<string> =
     bash.Command(command).Lines
+
+let authorHours (authorLog: array<string>) : array<int> =
+    authorLog
+    |> Array.choose (fun line ->
+        let m : Match = Regex.Match(line, @"^Date:\s+[\d-]{10}\s+(\d{2})")
+        if m.Success = false then None else m.Groups.[1].Value |> int |> Some)
 
 [<EntryPoint>]
 let main argv =
