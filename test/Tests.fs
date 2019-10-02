@@ -74,4 +74,16 @@ let ``Test updateWithDefault function`` () =
     Assert.Equal<Map<int, string>>(
         Map.ofArray [|(1, "one"); (2, "two")|],
         updateWithDefault ((+) "prefix-") 1 "one" <| Map.ofArray [|(2, "two")|])        
-        
+
+// ---------------------------------
+// groupBy
+// ---------------------------------
+
+[<Fact>]
+let ``Test groupBy function`` () =
+    Assert.Equal<Map<int, int>>(Map.empty, groupBy id Array.empty)
+    Assert.Equal<Map<int, int>>(Map.ofArray [|(1, 1);|], groupBy id [|1|])
+    Assert.Equal<Map<int, int>>(
+        Map.ofArray [|(0, 4); (1, 2)|], 
+        groupBy (fun n -> n % 2) [|2;4;6;7;8;9|])
+
