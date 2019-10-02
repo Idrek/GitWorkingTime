@@ -62,6 +62,9 @@ let groupBy (f: 'a -> 'b) (arr: array<'a>) : Map<'b, int> =
         (lastArrPosition, (Map.empty<'b, int>))
     |> snd
 
+let groupCommitsByHour (hours: array<int>) : Map<int, int> =
+    groupBy id hours
+
 [<EntryPoint>]
 let main argv =
     let commandLineR = CommandLine.Parser.Default.ParseArguments<Options>(argv)
