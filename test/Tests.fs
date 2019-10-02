@@ -87,3 +87,15 @@ let ``Test groupBy function`` () =
         Map.ofArray [|(0, 4); (1, 2)|], 
         groupBy (fun n -> n % 2) [|2;4;6;7;8;9|])
 
+// ---------------------------------
+// groupCommitsByHour
+// ---------------------------------
+
+[<Fact>]
+let ``Test groupCommitsByHour function`` () =
+    Assert.Equal<Map<int, int>>(Map.empty, groupCommitsByHour Array.empty)
+    Assert.Equal<Map<int, int>>(Map.ofArray [|(1, 1);|], groupCommitsByHour [|1|])
+    Assert.Equal<Map<int, int>>(
+        Map.ofArray [|(2, 2); (4, 1); (6, 3)|], 
+        groupCommitsByHour [|2;4;6;6;2;6|])
+        
