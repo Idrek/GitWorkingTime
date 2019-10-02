@@ -3,6 +3,7 @@
 open CommandLine
 open System
 
+type Bash = Shell.NET.Bash
 type OptionAttribute = CommandLine.OptionAttribute
 
 type Options = {
@@ -22,6 +23,9 @@ let buildCommandLogByAuthor (options: Options) : string =
     sprintf "cd %s && git --no-pager log --author='%s' --date=iso" 
         options.Repository 
         options.Author
+
+let runCommand (bash: Bash) (command: string) : array<string> =
+    bash.Command(command).Lines
 
 [<EntryPoint>]
 let main argv =
