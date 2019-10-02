@@ -18,6 +18,11 @@ type ExitCode =
     | CommandLineParseError = 1
     | CommandLineNotParsed = 2
 
+let buildCommandLogByAuthor (options: Options) : string = 
+    sprintf "cd %s && git --no-pager log --author='%s' --date=iso" 
+        options.Repository 
+        options.Author
+
 [<EntryPoint>]
 let main argv =
     let commandLineR = CommandLine.Parser.Default.ParseArguments<Options>(argv)
