@@ -29,6 +29,7 @@ let isWeekend (date: DateTime) : bool =
 
 let runCommand (bash: Bash) (command: string) : array<string> =
     bash.Command(command).Lines
+    
 let words (s: string) : array<string> =
     match s with
     | s when String.IsNullOrEmpty s -> Array.empty
@@ -94,8 +95,7 @@ let repeat (count: int) (str: string) : string =
 let printHourChart (maxCommits: int) ({ Weekend = weekend; Workdays = workdays}: Hours) : unit =
     let fMaxCommits = float maxCommits
     let weekendCommits = sumCommits weekend
-    let workDaysCommits = sumCommits workdays
-    
+    let workDaysCommits = sumCommits workdays   
     printfn "%6s   %6s %-30s  %6s %-30s" "hour" "" "Monday to Friday" "" "Saturday and Sunday"
     workdays
     |> Map.toArray 
