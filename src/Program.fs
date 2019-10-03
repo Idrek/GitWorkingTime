@@ -9,6 +9,7 @@ type DayOfWeek = System.DayOfWeek
 type Match = System.Text.RegularExpressions.Match
 type OptionAttribute = CommandLine.OptionAttribute
 type Regex = System.Text.RegularExpressions.Regex
+type String = System.String
 
 type Options = {
     [<Option("author", Required = true, HelpText = "Get its work time")>]
@@ -43,6 +44,9 @@ let initHours () : Map<int, int> =
     let dayHours = 24
     let commits = 0
     Seq.init dayHours (fun h -> (h, commits)) |> Map.ofSeq
+    
+let hour (time: string) : int =
+    time.Trim().Split(":", 2).[0] |> int
 
 let updateWithDefault 
         (f: 'b -> 'b) 
