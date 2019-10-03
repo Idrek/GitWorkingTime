@@ -73,6 +73,10 @@ let maxHourCommits (hours: Map<_, int>) : int =
     then 0
     else hours |> Map.toArray |> Array.maxBy snd |> snd
 
+type Hours = {
+    Weekend: Map<int, int>
+    Workdays: Map<int, int>
+} 
 let repeat (count: int) (str: string) : string =
     String.init count (fun _ -> str)
 
