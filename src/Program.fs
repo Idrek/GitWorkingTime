@@ -105,12 +105,30 @@ let sumCommits (hours: Map<_, int>) : int =
 let repeat (count: int) (str: string) : string =
     String.init count (fun _ -> str)
 
-let printHourChart (maxCommits: int) (hours: Map<int, int>) : unit =
+let printHourChart (maxCommits: int) ({ Weekend = weekend; Workdays = workdays}: Hours) : unit =
     let fMaxCommits = float maxCommits
-    hours
-    |> Map.toArray
+    let weekendCommits = sumCommits weekend
+    let workDaysCommits = sumCommits workdays
+    
+    printfn "%6s   %6s %-30s  %6s %-30s" "hour" "" "Monday to Friday" "" "Saturday and Sunday"
+    workdays
+    |> Map.toArray 
     |> Array.iter (fun (hour, commits) -> 
-        printfn "%02d | %4d %s" hour commits (repeat (int (float commits / fMaxCommits * 50.0)) "*"))
+        let (scommits, fcommits) = (string commits, float commits)
+        let weekendHourCommits = Map.find hour weekend
+        printfn "%6s   %6s %-30s  %6s %-30s" 
+            (sprintf "%02d" hour) 
+            scommits
+            (repeat (int (fcommits / fMaxCommits * 25.0)) "*")
+            (string weekendHourCommits)
+            (repeat (int (float weekendHourCommits / fMaxCommits * 25.0)) "*"))
+    let totalCommits = weekendCommits + workDaysCommits |> float            
+    printfn "\n%6s   %6s %-30s  %6s %-30s"
+        "Total:"
+        (string workDaysCommits)
+        (sprintf "(%.1f%%)" ((float workDaysCommits) * 100.0 / totalCommits))
+        (string weekendCommits)
+        (sprintf "(%.1f%%)" ((float weekendCommits) * 100.0 / totalCommits))
 
 [<EntryPoint>]
 let main argv =
