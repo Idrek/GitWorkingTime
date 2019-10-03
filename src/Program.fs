@@ -129,9 +129,13 @@ let main argv =
         | [||] | [|""|] -> ()
         | authorLog' -> 
             let emptyHours : Map<int, int> = initHours ()
-            let workHours : array<int> = authorHours authorLog'
-            let allHours : Map<int, int> = workHours |> groupCommitsByHour |> merge emptyHours
-            let maxCommits : int = maxHourCommits allHours
+            let hours : Hours = authorHours authorLog'
+            let maxCommits : int = Hours.maxCommits hours
+            let allHours : Hours = { 
+                hours with
+                    Weekend = hours.Weekend |> merge emptyHours
+                    Workdays = hours.Workdays |> merge emptyHours
+            }
             printHourChart maxCommits allHours           
         int ExitCode.Success
     | _ -> 
