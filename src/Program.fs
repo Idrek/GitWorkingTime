@@ -28,6 +28,10 @@ let isWeekend (date: DateTime) : bool =
 
 let runCommand (bash: Bash) (command: string) : array<string> =
     bash.Command(command).Lines
+let words (s: string) : array<string> =
+    match s with
+    | s when String.IsNullOrEmpty s -> Array.empty
+    | s -> Regex.Split(s.Trim(), @"\s+")
 
 let authorHours (authorLog: array<string>) : array<int> =
     authorLog
