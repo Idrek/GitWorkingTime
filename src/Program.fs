@@ -34,12 +34,6 @@ let words (s: string) : array<string> =
     | s when String.IsNullOrEmpty s -> Array.empty
     | s -> Regex.Split(s.Trim(), @"\s+")
 
-let authorHours (authorLog: array<string>) : array<int> =
-    authorLog
-    |> Array.choose (fun line ->
-        let m : Match = Regex.Match(line, @"^Date:\s+[\d-]{10}\s+(\d{2})")
-        if m.Success = false then None else m.Groups.[1].Value |> int |> Some)
-
 let initHours () : Map<int, int> =
     let dayHours = 24
     let commits = 0
@@ -92,6 +86,17 @@ type Hours = {
     static member maxCommits ({ Weekend = weekend; Workdays = workdays}: Hours) : int =
         max (maxHourCommits weekend) (maxHourCommits workdays)
 
+let authorHours (authorLog: array<string>) : Hours =
+    let emptyHours = { Weekend = Map.empty; Workdays = Map.empty }
+    (emptyHours, authorLog)
+    ||> Array.fold 
+        (fun hours line ->
+            let [|date; time|] = (words line).[1 .. 2]
+            let h : int = hour time
+            if isWeekend (date |> DateTime.Parse)
+            then { hours with Weekend = updateWithDefault ((+) 1) h 1 hours.Weekend }
+            else { hours with Workdays = updateWithDefault ((+) 1) h 1 hours.Workdays })         
+ 
 let repeat (count: int) (str: string) : string =
     String.init count (fun _ -> str)
 
