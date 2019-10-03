@@ -21,10 +21,6 @@ type ExitCode =
     | CommandLineParseError = 1
     | CommandLineNotParsed = 2
 
-let buildCommandLogByAuthor (options: Options) : string = 
-    sprintf "cd '%s' && git --no-pager log --author='%s' --date=iso" 
-        options.Repository 
-        options.Author
 
 let runCommand (bash: Bash) (command: string) : array<string> =
     bash.Command(command).Lines
@@ -64,6 +60,10 @@ let groupBy (f: 'a -> 'b) (arr: array<'a>) : Map<'b, int> =
 
 let groupCommitsByHour (hours: array<int>) : Map<int, int> =
     groupBy id hours
+let buildCommandLogByAuthor (options: Options) : string = 
+    sprintf "cd '%s' && git --no-pager log --author='%s' --format='%%H %%ai'" 
+        options.Repository 
+        options.Author
 
 let merge (m1: Map<'a, 'b>) (m2: Map<'a, 'b>) : Map<'a, 'b> =
     Map.fold (fun acc k v -> Map.add k v acc) m1 m2
