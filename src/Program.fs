@@ -97,6 +97,11 @@ let authorHours (authorLog: array<string>) : Hours =
             then { hours with Weekend = updateWithDefault ((+) 1) h 1 hours.Weekend }
             else { hours with Workdays = updateWithDefault ((+) 1) h 1 hours.Workdays })         
  
+let sumCommits (hours: Map<_, int>) : int =
+    if Map.isEmpty hours
+    then 0
+    else hours |> Map.toArray |> Array.sumBy snd
+
 let repeat (count: int) (str: string) : string =
     String.init count (fun _ -> str)
 
