@@ -52,8 +52,6 @@ let updateWithDefault
     | None -> Map.add key defaultValue m
     | Some value -> Map.add key (f value) m
 
-let groupCommitsByHour (hours: array<int>) : Map<int, int> =
-    groupBy id hours
 let buildCommandLogByAuthor (options: Options) : string = 
     sprintf "cd '%s' && git --no-pager log --author='%s' --format='%%H %%ai'" 
         options.Repository 
