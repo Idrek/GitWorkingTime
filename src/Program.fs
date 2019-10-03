@@ -4,6 +4,8 @@ module GitWorkingTime.Program
 open CommandLine
 
 type Bash = Shell.NET.Bash
+type DateTime = System.DateTime
+type DayOfWeek = System.DayOfWeek
 type Match = System.Text.RegularExpressions.Match
 type OptionAttribute = CommandLine.OptionAttribute
 type Regex = System.Text.RegularExpressions.Regex
@@ -21,6 +23,8 @@ type ExitCode =
     | CommandLineParseError = 1
     | CommandLineNotParsed = 2
 
+let isWeekend (date: DateTime) : bool =
+    date.DayOfWeek = DayOfWeek.Saturday || date.DayOfWeek = DayOfWeek.Sunday
 
 let runCommand (bash: Bash) (command: string) : array<string> =
     bash.Command(command).Lines
