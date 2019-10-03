@@ -80,7 +80,10 @@ let maxHourCommits (hours: Map<_, int>) : int =
 type Hours = {
     Weekend: Map<int, int>
     Workdays: Map<int, int>
-} 
+} with
+    static member maxCommits ({ Weekend = weekend; Workdays = workdays}: Hours) : int =
+        max (maxHourCommits weekend) (maxHourCommits workdays)
+
 let repeat (count: int) (str: string) : string =
     String.init count (fun _ -> str)
 
