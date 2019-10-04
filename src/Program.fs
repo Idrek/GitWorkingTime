@@ -12,8 +12,8 @@ type Regex = System.Text.RegularExpressions.Regex
 type String = System.String
 
 type Options = {
-    [<Option("author", Required = true, HelpText = "Get its work time")>]
-    Author: string
+    [<Option("author", Required = true, Separator = ';', HelpText = "Get its work time")>]
+    Authors: seq<string>
 
     [<Option("repo", Required = true, HelpText = "Local path to the repository to parse")>]
     Repository: string
