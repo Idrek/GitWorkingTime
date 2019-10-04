@@ -1,6 +1,6 @@
 # Git Working Time
 
-Print console graph with work hours of any repository collaborator. Dotnet version of [Famous programmers work time](https://ivan.bessarabov.com/blog/famous-programmers-work-time)
+Print console graph with work hours of any repository collaborator. Dotnet version of [Famous programmers work time](https://ivan.bessarabov.com/blog/famous-programmers-work-time) and its second part [Workweek vs Weekend](https://ivan.bessarabov.com/blog/famous-programmers-work-time-part-2-workweek-vs-weekend)
 
 ## Getting Started
 
@@ -38,5 +38,5 @@ dotnet test test/GitWorkingTimeTest.fsproj
 
 ## Acknowledgments
 
-* Ivan Bessarabov and its [blog entry](https://ivan.bessarabov.com/blog/famous-programmers-work-time)
+* Ivan Bessarabov and his blog entries [part1](https://ivan.bessarabov.com/blog/famous-programmers-work-time) and [Workweek vs Weekend](https://ivan.bessarabov.com/blog/famous-programmers-work-time-part-2-workweek-vs-weekend)
 
