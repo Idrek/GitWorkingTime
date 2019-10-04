@@ -151,4 +151,13 @@ let ``Test words function`` () =
     Assert.Equal<array<string>>([|"Lorem"; "ipsum"; "dolor"|], words "Lorem ipsum\ndolor")
     Assert.Equal<array<string>>([|"Beth"; "4.00"; "0"|], words "Beth\t4.00\t0")
 
+// ---------------------------------
+// hour
+// ---------------------------------        
+
+[<Fact>]
+let ``Test hour function`` () =
+    Assert.Equal(16, hour "16:24:51")
+    Assert.Equal(0, hour "00:24:51")
+
     
