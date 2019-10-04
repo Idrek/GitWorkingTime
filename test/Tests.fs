@@ -172,5 +172,13 @@ let ``Test Hours.maxCommits function`` () =
     }
     Assert.Equal(19, Hours.maxCommits hours)
 
+// ---------------------------------
+// sumCommits
+// ---------------------------------        
 
+[<Fact>]
+let ``Test sumCommits function`` () =
+    let hours : Map<_, int> = Map [|(11, 8); (12, 14); (20, 3); (23, 1)|]
+    Assert.Equal(8 + 14 + 3 + 1, sumCommits hours)
+    
     
