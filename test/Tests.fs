@@ -76,18 +76,6 @@ let ``Test updateWithDefault function`` () =
         updateWithDefault ((+) "prefix-") 1 "one" <| Map.ofArray [|(2, "two")|])        
 
 // ---------------------------------
-// groupCommitsByHour
-// ---------------------------------
-
-[<Fact>]
-let ``Test groupCommitsByHour function`` () =
-    Assert.Equal<Map<int, int>>(Map.empty, groupCommitsByHour Array.empty)
-    Assert.Equal<Map<int, int>>(Map.ofArray [|(1, 1);|], groupCommitsByHour [|1|])
-    Assert.Equal<Map<int, int>>(
-        Map.ofArray [|(2, 2); (4, 1); (6, 3)|], 
-        groupCommitsByHour [|2;4;6;6;2;6|])
-
-// ---------------------------------
 // merge
 // ---------------------------------        
 
