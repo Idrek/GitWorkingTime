@@ -12,7 +12,7 @@ type Regex = System.Text.RegularExpressions.Regex
 type String = System.String
 
 type Options = {
-    [<Option("author", Required = true, Separator = ';', HelpText = "Get its work time")>]
+    [<Option("authors", Required = true, Separator = ';', HelpText = "Get their work time combined")>]
     Authors: seq<string>
 
     [<Option("repo", Required = true, HelpText = "Local path to the repository to parse")>]
