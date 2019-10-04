@@ -3,6 +3,8 @@ module GitWorkingTimeTest.Tests
 open GitWorkingTime.Program
 open Xunit
 
+type DateTime = System.DateTime
+
 // ---------------------------------
 // Tests
 // ---------------------------------
@@ -122,4 +124,17 @@ let ``Test maxHourCommits function`` () =
 let ``Test repeat function`` () =
     Assert.Equal("aaaa", repeat 4 "a")
     Assert.Equal("abcabcabc", repeat 3 "abc")
+    
+// ---------------------------------
+// isWeekend
+// ---------------------------------        
+
+[<Fact>]
+let ``Test isWeekend function`` () =
+    let date = DateTime(2019, 10, 4)
+    Assert.Equal(false, isWeekend date)
+
+    let date = DateTime(2019, 10, 5)
+    Assert.Equal(true, isWeekend date)
+
     
