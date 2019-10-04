@@ -15,15 +15,22 @@ type DateTime = System.DateTime
 
 [<Fact>]
 let ``Test buildCommandLogByAuthor function`` () =
-    let options : Options = { Author = "me"; Repository = "../Demo" }
+    let options : Options = { Authors = seq [|"me"|]; Repository = "../Demo" }
     Assert.Equal(
         "cd '../Demo' && git --no-pager log --author='me' --format='%H %ai'",
         buildCommandLogByAuthor options)
 
-    let options : Options = { Author = "he and she"; Repository = "../Demo space" }
+    let options : Options = { Authors = seq [|"he and she"|]; Repository = "../Demo space" }
     Assert.Equal(
         "cd '../Demo space' && git --no-pager log --author='he and she' --format='%H %ai'",
         buildCommandLogByAuthor options)
+
+    let options : Options = { 
+        Authors = seq [|"me"; "you"; "he"; "she"|]
+        Repository = "../Demo space" }
+    Assert.Equal(
+        "cd '../Demo space' && git --no-pager log --author='me' --author='you' --author='he' --author='she' --format='%H %ai'",
+        buildCommandLogByAuthor options)        
 
 // ---------------------------------
 // authorHours
