@@ -78,11 +78,13 @@ let authorHours (authorLog: array<string>) : Hours =
     (emptyHours, authorLog)
     ||> Array.fold 
         (fun hours line ->
-            let [|date; time|] = (words line).[1 .. 2]
-            let h : int = hour time
-            if isWeekend (date |> DateTime.Parse)
-            then { hours with Weekend = updateWithDefault ((+) 1) h 1 hours.Weekend }
-            else { hours with Workdays = updateWithDefault ((+) 1) h 1 hours.Workdays })         
+            match (words line).[1 .. 2] with
+            | [|date; time|] ->
+                let h : int = hour time
+                if isWeekend (date |> DateTime.Parse)
+                then { hours with Weekend = updateWithDefault ((+) 1) h 1 hours.Weekend }
+                else { hours with Workdays = updateWithDefault ((+) 1) h 1 hours.Workdays }
+            | _ -> failwith "Error: Parsing git log")         
  
 let sumCommits (hours: Map<_, int>) : int =
     if Map.isEmpty hours
