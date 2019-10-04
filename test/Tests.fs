@@ -137,4 +137,18 @@ let ``Test isWeekend function`` () =
     let date = DateTime(2019, 10, 5)
     Assert.Equal(true, isWeekend date)
 
+// ---------------------------------
+// words
+// ---------------------------------        
+
+[<Fact>]
+let ``Test words function`` () =
+    Assert.Equal<array<string>>(Array.empty, words "")
+    Assert.Equal<array<string>>([|""|], words "    \n    ")
+    Assert.Equal<array<string>>([|"one"|], words "one")
+    Assert.Equal<array<string>>([|"one"|], words "one   ")
+    Assert.Equal<array<string>>([|"one"|], words "one\n")
+    Assert.Equal<array<string>>([|"Lorem"; "ipsum"; "dolor"|], words "Lorem ipsum\ndolor")
+    Assert.Equal<array<string>>([|"Beth"; "4.00"; "0"|], words "Beth\t4.00\t0")
+
     
