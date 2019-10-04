@@ -160,4 +160,17 @@ let ``Test hour function`` () =
     Assert.Equal(16, hour "16:24:51")
     Assert.Equal(0, hour "00:24:51")
 
+// ---------------------------------
+// Hours.maxCommits
+// ---------------------------------        
+
+[<Fact>]
+let ``Test Hours.maxCommits function`` () =
+    let hours : Hours = {
+        Weekend = Map [|(16, 2); (18, 19); (21, 7)|]
+        Workdays = Map [|(11, 8); (12, 14); (20, 3); (23, 1)|]
+    }
+    Assert.Equal(19, Hours.maxCommits hours)
+
+
     
