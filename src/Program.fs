@@ -12,8 +12,8 @@ type Regex = System.Text.RegularExpressions.Regex
 type String = System.String
 
 type Options = {
-    [<Option("author", Required = true, HelpText = "Get its work time")>]
-    Author: string
+    [<Option("authors", Required = true, Separator = ';', HelpText = "Get their work time combined")>]
+    Authors: seq<string>
 
     [<Option("repo", Required = true, HelpText = "Local path to the repository to parse")>]
     Repository: string
@@ -54,9 +54,10 @@ let updateWithDefault
     | Some value -> Map.add key (f value) m
 
 let buildCommandLogByAuthor (options: Options) : string = 
-    sprintf "cd '%s' && git --no-pager log --author='%s' --format='%%H %%ai'" 
+    let authors = options.Authors |> Seq.map (sprintf "--author='%s'") |> String.concat " "
+    sprintf "cd '%s' && git --no-pager log %s --format='%%H %%ai'" 
         options.Repository 
-        options.Author
+        authors
 
 let merge (m1: Map<'a, 'b>) (m2: Map<'a, 'b>) : Map<'a, 'b> =
     Map.fold (fun acc k v -> Map.add k v acc) m1 m2
