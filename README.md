@@ -1,21 +1,31 @@
 # Git Working Time
 
-Print console graph with work hours of any repository collaborator. Dotnet version of [Famous programmers work time](https://ivan.bessarabov.com/blog/famous-programmers-work-time) and its second part [Workweek vs Weekend](https://ivan.bessarabov.com/blog/famous-programmers-work-time-part-2-workweek-vs-weekend)
+Dotnet tool to print console graph with work hours of any repository collaborator. Dotnet version of [Famous programmers work time](https://ivan.bessarabov.com/blog/famous-programmers-work-time) and its second part [Workweek vs Weekend](https://ivan.bessarabov.com/blog/famous-programmers-work-time-part-2-workweek-vs-weekend)
+
+### Prerequisites
+
+* [Linux](https://www.distrowatch.com/)
+* [Git](https://git-scm.com/)
+* [.Net Core](https://dotnet.microsoft.com/download)
+
+### Installing
+
+Install as tool from the nuget repository.
+
+```
+$ dotnet tool install --global GitWorkingTime
+```
 
 ## Getting Started
 
 ```
-$ git clone https://github.com/Idrek/GitWorkingTime GitWorkingTime
-
 $ git clone https://github.com/memcached/memcached memcached
 
-$ cd GitWorkingTime
-
 ## Print help
-$ dotnet run --project=src/GitWorkingTime.fsproj -- --help
+$ dotnet-worktime --help
 
 GitWorkingTime 1.0.0
-Copyright (C) 2019 GitWorkingTime
+Copyright (C) 2020 GitWorkingTime
 
   --authors    Required. Get their work time combined
 
@@ -26,7 +36,7 @@ Copyright (C) 2019 GitWorkingTime
   --version    Display version information.
 
 ## Print work time of Brad Fitzpatrick
-$ dotnet run --project=src/GitWorkingTime.fsproj -- --authors='Brad Fitzpatrick' --repo='../memcached'
+$ dotnet-worktime -- --authors='Brad Fitzpatrick' --repo='memcached'
 
   hour          Monday to Friday                       Saturday and Sunday           
     00       11 ******************                   0                               
@@ -58,7 +68,7 @@ Total:      144 (87.8%)                             20 (12.2%)
 
 ## Print combined work time of multiple authors, separated by ';' character. Most useful when one
 ## author has collaborated with single or multiple aliases (not the case of this example)
-$ dotnet run --project=src/GitWorkingTime.fsproj -- --authors='Brad Fitzpatrick;dormando' --repo='../memcached'
+$ dotnet-worktime -- --authors='Brad Fitzpatrick;dormando' --repo='memcached'
 
   hour          Monday to Friday                       Saturday and Sunday           
     00       57 *************************            5 **                            
@@ -89,38 +99,12 @@ $ dotnet run --project=src/GitWorkingTime.fsproj -- --authors='Brad Fitzpatrick;
 Total:      557 (73.9%)                            197 (26.1%)
 ```
 
-### Prerequisites
-
-* [Linux](https://www.distrowatch.com/)
-* [Git](https://git-scm.com/)
-* [.Net Core](https://dotnet.microsoft.com/download)
-
-### Installing
-
-Create an executable shell script that runs the built `dll` file (Omitted shell commands output).
-
-```
-$ git clone https://github.com/Idrek/GitWorkingTime GitWorkingTime && cd $_
-
-$ dotnet build --output /tmp/build src/GitWorkingTime.fsproj
-
-$ cd /tmp/build
-
-$ printf '#!/usr/bin/env bash\n\ndotnet /tmp/build/GitWorkingTime.dll "$@"\n' > git_working_time.sh
-
-$ chmod u+x git_working_time.sh
-
-$ git clone https://github.com/memcached/memcached memcached
-
-$ ./git_working_time.sh --authors='Brad Fitzpatrick' --repo='memcached'
-```
-
 ## Running the tests
 
 ```
 $ git clone https://github.com/Idrek/GitWorkingTime GitWorkingTime && cd $_
 
-$ dotnet test test/GitWorkingTimeTest.fsproj
+$ dotnet test
 
 Test Run Successful.
 Total tests: 12
