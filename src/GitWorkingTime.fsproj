@@ -1,10 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Authors>Idrek</Authors>
+    <Copyright></Copyright>
+    <Description>Print console graph with work hours of any repository collaborator</Description>
     <OutputType>Exe</OutputType>
     <PackAsTool>true</PackAsTool>
+    <PackageIcon></PackageIcon>
+    <PackageId>GitWorkingTime</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseFile></PackageLicenseFile>
     <PackageOutputPath>./nupkg</PackageOutputPath>
+    <PackageProjectUrl>https://github.com/Idrek/GitWorkingTime</PackageProjectUrl>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>git; fsharp; dotnetcore; </PackageTags>
+    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersionPrefix></PackageVersionPrefix>
+    <PackageVersionSuffix></PackageVersionSuffix>
+    <RepositoryBranch>master</RepositoryBranch>
+    <RepositoryCommit></RepositoryCommit>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Idrek/GitWorkingTime</RepositoryUrl>
+    <Summary>Print console graph with work hours of any repository collaborator</Summary>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Title>GitWorkingTime</Title>
     <ToolCommandName>dotnet-worktime</ToolCommandName>
   </PropertyGroup>
 
